@@ -6,29 +6,25 @@ const model = mongoose.model
 const artworkSchema = new Schema(
     {
         artistName: {
-            type: Types.ObjetctId,
-            ref: "Artist",
+            type: String,
+            trim: true,
         },
         name: {
             type: String,
-            required: true,
+            trim: true,
         },
         description: {
             type: String,
-            required: true,
             trim: true,
         },
         year: {
             type: Number,
-            required: true,
         },
         technique: {
             type: String,
-            required: true,
         },
         price: {
-            type: Number,
-            required: true,
+            type: String,
         },
         // TO DO: isSold: false
     },

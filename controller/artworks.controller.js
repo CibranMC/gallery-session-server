@@ -2,7 +2,7 @@ const { isValidObjectId } = require('mongoose');
 const artworkModel = require('../models/Artwork.model');
 
 const getAll = (req, res, next) => {
-    const { offset = 0, limit = 15 } = req.query;
+    const { offset = 0, limit = 8 } = req.query;
     let artists;
     artworkModel
         .find()
@@ -12,7 +12,7 @@ const getAll = (req, res, next) => {
         .lean()
         .then((artworksData) => {
             artworks = artworksData;
-            return artworksModel.countDocuments();
+            return artworkModel.countDocuments();
         })
         .then((countArtwork) => {
             res
@@ -43,6 +43,7 @@ const getOne = (req, res, next) => {
         if (!isValidObjectId(id)) {
             throw new Error('Error: Invalid mongo ID');
         }
+
         artworkModel
             .findById(id)
             .then((artwork) => {
