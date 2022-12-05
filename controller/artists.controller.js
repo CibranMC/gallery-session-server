@@ -27,10 +27,10 @@ const getAll = (req, res, next) => {
 };
 
 const create = (req, res, next) => {
-    const { name, lastName, userName, email, phoneNumber } = req.body;
+    const { name, lastName, userName, description, email, phoneNumber } = req.body;
 
     artistModel
-        .create({ name, lastName, userName, email, phoneNumber })
+        .create({ name, lastName, userName, description, email, phoneNumber })
         .then(() => {
             res.sendStatus(201);
         })
@@ -54,26 +54,27 @@ const getOne = (req, res, next) => {
     }
 };
 
-// const updateOne = (req, res, next) => {
-//     try {
-//         const { id } = req.params;
-//         if (!isValidObjectId(id)) {
-//             throw new Error('Error: Invalid mongo ID');
-//         }
-//         const { } = req.body;
+const updateOne = (req, res, next) => {
+    try {
+        const { id } = req.params;
+        if (!isValidObjectId(id)) {
+            throw new Error('Error: Invalid mongo ID');
+        }
+        const { name, lastName, userName, description, email, phoneNumber } = req.body;
 
-//         artistModel
-//             .findByIdAndUpdate(id, {
+        artistModel
+            .findByIdAndUpdate(id, {
+                name, lastName, userName, description, email, phoneNumber
+            })
+            .then(() => {
+                res.sendStatus(204);
+            })
+            .catch(next);
+    } catch (err) {
+        res.status(400).json({ errorMessage: err.message });
+    }
+};
 
-//             })
-//             .then(() => {
-//                 res.sendStatus(204);
-//             })
-//             .catch(next);
-//     } catch (err) {
-//         res.status(400).json({ errorMessage: err.message });
-//     }
-// };
 // const deleteOne = (req, res, next) => {
 //     try {
 //         const { id } = req.params;
@@ -94,7 +95,7 @@ const getOne = (req, res, next) => {
 module.exports = {
     getAll,
     create,
-    getOne
-    // updateOne,
+    getOne,
+    updateOne
     // deleteOne,
 };
