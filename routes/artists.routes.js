@@ -15,6 +15,9 @@ router.get('/:id', getOne)
 // ---- POST ----
 router.post('/', create)
 
+router.post('/', delete)
+
+
 //---- PUT ----
 router.put('/:id', updateOne)
 
