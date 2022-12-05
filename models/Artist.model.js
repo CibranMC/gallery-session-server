@@ -5,24 +5,23 @@ const artistSchema = new Schema(
         name: {
             type: String,
             trim: true,
+            unique: true,
         },
         lastName: {
             type: String,
             trim: true,
+            unique: true,
         },
-        UserName: {
+        userName: {
             type: String,
             trim: true,
         },
         imageUrl: String,
-        contact: {
-            email: {
-                type: String,
-                required: true
-            },
-            phoneNumber: {
-                type: Number
-            }
+        email: {
+            type: String,
+        },
+        phoneNumber: {
+            type: String,
         }
     },
     {

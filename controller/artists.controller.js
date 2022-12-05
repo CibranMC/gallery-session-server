@@ -1,4 +1,4 @@
-// const { isValidObjectId } = require('mongoose');
+const { isValidObjectId } = require('mongoose');
 const artistModel = require('../models/Artist.model');
 
 const getAll = (req, res, next) => {
@@ -25,33 +25,35 @@ const getAll = (req, res, next) => {
         })
         .catch(next);
 };
-// const getOne = (req, res, next) => {
-//     try {
-//         const { id } = req.params;
-//         if (!isValidObjectId(id)) {
-//             throw new Error('Error: Invalid mongo ID');
-//         }
-//         artistModel
-//             .findById(id)
-//             .then((artist) => {
-//                 res.status(200).json(artist);
-//             })
-//             .catch(next);
-//     } catch (err) {
-//         res.status(400).json({ errorMessage: err.message });
-//     }
-// };
-// const create = (req, res, next) => {
-//     const { } = req.body;
 
-//     artistModel
-//         .create({
-//         })
-//         .then(() => {
-//             res.sendStatus(201);
-//         })
-//         .catch(next);
-// };
+const create = (req, res, next) => {
+    const { name, lastName, userName, email, phoneNumber } = req.body;
+
+    artistModel
+        .create({ name, lastName, userName, email, phoneNumber })
+        .then(() => {
+            res.sendStatus(201);
+        })
+        .catch(next);
+};
+
+const getOne = (req, res, next) => {
+    try {
+        const { id } = req.params;
+        if (!isValidObjectId(id)) {
+            throw new Error('Error: Invalid mongo ID');
+        }
+        artistModel
+            .findById(id)
+            .then((artist) => {
+                res.status(200).json(artist);
+            })
+            .catch(next);
+    } catch (err) {
+        res.status(400).json({ errorMessage: err.message });
+    }
+};
+
 // const updateOne = (req, res, next) => {
 //     try {
 //         const { id } = req.params;
@@ -90,9 +92,9 @@ const getAll = (req, res, next) => {
 // };
 
 module.exports = {
-    getAll
-    // getOne,
-    // create,
+    getAll,
+    create,
+    getOne
     // updateOne,
     // deleteOne,
 };
