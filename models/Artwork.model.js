@@ -30,8 +30,7 @@ const artworkSchema = new Schema(
             type: Number,
             required: true,
         },
-        isSold: false
-
+        // TO DO: isSold: false
     },
     {
         timestamps: true,

@@ -2,7 +2,7 @@ const { isValidObjectId } = require('mongoose');
 const artistModel = require('../models/Artist.model');
 
 const getAll = (req, res, next) => {
-    const { offset = 0, limit = 10 } = req.query;
+    const { offset = 0, limit = 15 } = req.query;
     let artists;
     artistModel
         .find()
@@ -75,27 +75,27 @@ const updateOne = (req, res, next) => {
     }
 };
 
-// const deleteOne = (req, res, next) => {
-//     try {
-//         const { id } = req.params;
-//         if (!isValidObjectId(id)) {
-//             throw new Error('Error: Invalid mongo ID');
-//         }
-//         artistModel
-//             .findByIdAndDelete(id)
-//             .then(() => {
-//                 res.sendStatus(204);
-//             })
-//             .catch(next);
-//     } catch (err) {
-//         res.status(400).json({ errorMessage: err.message });
-//     }
-// };
+const deleteOne = (req, res, next) => {
+    try {
+        const { id } = req.params;
+        if (!isValidObjectId(id)) {
+            throw new Error('Error: Invalid mongo ID');
+        }
+        artistModel
+            .findByIdAndDelete(id)
+            .then(() => {
+                res.sendStatus(204);
+            })
+            .catch(next);
+    } catch (err) {
+        res.status(400).json({ errorMessage: err.message });
+    }
+};
 
 module.exports = {
     getAll,
     create,
     getOne,
-    updateOne
-    // deleteOne,
+    updateOne,
+    deleteOne,
 };
