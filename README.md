@@ -15,7 +15,7 @@
 | /user/edit-profile/:id     | GET    | Edit user profile             |
 | /user/profile/:id          | GET    | User profile                  |
 | /user/following/delete/:id | GET    | Delete followers              |
-| /user/edit/:id             | GET    | Get data of a user for admin  |
+| /user/edit/:i              | GET    | Get data of a user for admin  |
 | /user/delete/:id           | GET    | Admin user delete a user      |
 | /user/edit-profile         | POST   | Edit your profile             |
 | /user/following/:id        | POST   | Add a user following          |
