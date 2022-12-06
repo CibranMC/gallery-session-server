@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const { ENUM_ROLES, USER } = require('../const/user.const')
+const { ENUM_ROLES, GALLERIST, USER } = require('../const/user.const')
 
 const userSchema = new Schema(
   {
@@ -13,19 +13,17 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, 'Password is required.']
-    }
-  },
-  {
-    // this second object adds extra properties: `createdAt` and `updatedAt`    
-    timestamps: true
-  },
-  {
+    },
     role: {
       type: String,
       enum: ENUM_ROLES,
       trim: true,
       default: USER
     }
+  },
+  {
+    // this second object adds extra properties: `createdAt` and `updatedAt`    
+    timestamps: true
   }
 
 );

@@ -1,4 +1,4 @@
-const Gallerist = 'Gallerist';
+const GALLERIST = 'Gallerist';
 
 const USER = 'User';
 

@@ -20,7 +20,7 @@ const artistSchema = new Schema(
             type: String,
             trim: true,
         },
-        imageUrl: String,
+        imageUrl: { type: String },
         email: {
             type: String,
         },

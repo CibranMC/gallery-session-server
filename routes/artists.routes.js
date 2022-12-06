@@ -1,5 +1,7 @@
 const router = require('express').Router()
 
+const fileUploader = require('../config/cloudinary.config');
+
 const {
     getAll,
     create,
@@ -14,7 +16,7 @@ router.get('/', getAll)
 router.get('/:id', getOne)
 
 // ---- POST ----
-router.post('/', create)
+router.post('/', fileUploader.single('image'), create)
 
 //---- PUT ----
 router.put('/:id', updateOne)
