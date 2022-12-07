@@ -3,7 +3,7 @@ const artworkModel = require('../models/Artwork.model');
 
 const getAll = (req, res, next) => {
     const { offset = 0, limit = 8 } = req.query;
-    let artists;
+    let artworks;
     artworkModel
         .find()
         .limit(limit)
@@ -18,7 +18,7 @@ const getAll = (req, res, next) => {
             res
                 .status(200)
                 .json({
-                    results: artists,
+                    results: artworks,
                     page: +offset,
                     maxPage: Math.floor(countArtwork / +limit),
                 });
@@ -61,11 +61,11 @@ const updateOne = (req, res, next) => {
         if (!isValidObjectId(id)) {
             throw new Error('Error: Invalid mongo ID');
         }
-        const { artistName, name, description, year, technique, price } = req.body;
+        const { artistName, name, description, year, technique, price, imageArtworkUrl } = req.body;
 
         artistModel
             .findByIdAndUpdate(id, {
-                artistName, name, description, year, technique, price
+                artistName, name, description, year, technique, price, imageArtworkUrl
             })
             .then(() => {
                 res.sendStatus(204);

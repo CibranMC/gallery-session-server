@@ -27,15 +27,16 @@ const getAll = (req, res, next) => {
 };
 
 const create = (req, res, next) => {
-    const { name, lastName, userName, description, email, phoneNumber } = req.body;
+    const { name, lastName, userName, imageUrl, description, email, phoneNumber } = req.body;
 
     artistModel
-        .create({ name, lastName, userName, description, email, phoneNumber })
+        .create({ name, lastName, userName, imageUrl, description, email, phoneNumber })
         .then(() => {
             res.sendStatus(201);
         })
         .catch(next);
 };
+
 
 const getOne = (req, res, next) => {
     try {
@@ -60,11 +61,11 @@ const updateOne = (req, res, next) => {
         if (!isValidObjectId(id)) {
             throw new Error('Error: Invalid mongo ID');
         }
-        const { name, lastName, userName, description, email, phoneNumber } = req.body;
+        const { name, lastName, userName, imageUrl, description, email, phoneNumber } = req.body;
 
         artistModel
             .findByIdAndUpdate(id, {
-                name, lastName, userName, description, email, phoneNumber
+                name, lastName, userName, imageUrl, description, email, phoneNumber
             })
             .then(() => {
                 res.sendStatus(204);

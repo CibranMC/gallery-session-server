@@ -26,6 +26,10 @@ const artworkSchema = new Schema(
         price: {
             type: String,
         },
+
+        imageArtworkUrl: {
+            type: String,
+        }
         // TO DO: isSold: false
     },
     {

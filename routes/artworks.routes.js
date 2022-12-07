@@ -16,7 +16,7 @@ router.get('/', getAll)
 router.get('/:id', getOne)
 
 // ---- POST ----
-router.post('/', create)
+router.post('/', fileUploader.single('imageArtworkUrl'), create)
 
 //---- PUT ----
 router.put('/:id', updateOne)
