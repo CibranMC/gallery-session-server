@@ -1,5 +1,6 @@
 const { isValidObjectId } = require('mongoose');
 const artistModel = require('../models/Artist.model');
+const fileUploader = require('../config/cloudinary.config');
 
 const getAll = (req, res, next) => {
     const { offset = 0, limit = 15 } = req.query;
@@ -30,8 +31,9 @@ const create = (req, res, next) => {
     const { name, lastName, userName, imageUrl, description, email, phoneNumber } = req.body;
 
     artistModel
-        .create({ name, lastName, userName, imageUrl, description, email, phoneNumber })
+        .create({ name, lastName, userName, imageUrl: req.file.path, description, email, phoneNumber })
         .then(() => {
+            res.json({ fileUrl: req.file.path })
             res.sendStatus(201);
         })
         .catch(next);
@@ -65,7 +67,7 @@ const updateOne = (req, res, next) => {
 
         artistModel
             .findByIdAndUpdate(id, {
-                name, lastName, userName, imageUrl, description, email, phoneNumber
+                name, lastName, userName, imageUrl: req.file.path, description, email, phoneNumber
             })
             .then(() => {
                 res.sendStatus(204);
