@@ -5,6 +5,7 @@ const fileUploader = require('../config/cloudinary.config');
 const {
     getAll,
     create,
+    uploadImage,
     getOne,
     updateOne,
     deleteOne
@@ -16,7 +17,9 @@ router.get('/', getAll)
 router.get('/:id', getOne)
 
 // ---- POST ----
-router.post('/', fileUploader.single('imageUrl'), create)
+router.post('/', create)
+
+router.post('/uploadimage', fileUploader.single('imageUrl'), uploadImage)
 
 //---- PUT ----
 router.put('/:id', updateOne)

@@ -65,7 +65,7 @@ const updateOne = (req, res, next) => {
         }
         const { artistName, name, description, year, technique, price, imageArtworkUrl } = req.body;
 
-        artistModel
+        artworkModel
             .findByIdAndUpdate(id, {
                 artistName, name, description, year, technique, price, imageArtworkUrl: req.file.path
             })

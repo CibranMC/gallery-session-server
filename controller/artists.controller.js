@@ -31,13 +31,23 @@ const create = (req, res, next) => {
     const { name, lastName, userName, imageUrl, description, email, phoneNumber } = req.body;
 
     artistModel
-        .create({ name, lastName, userName, imageUrl: req.file.path, description, email, phoneNumber })
+        .create({ name, lastName, userName, imageUrl, description, email, phoneNumber })
         .then(() => {
-            res.json({ fileUrl: req.file.path })
             res.sendStatus(201);
         })
         .catch(next);
 };
+
+const uploadImage = (req, res, next) => {
+    const { id } = req.params
+    const { imageUrl } = req.body
+    artistModel
+        .findByIdAndUpdate(id, { imageUrl: req.file.path })
+        .then(() => {
+            res.json({ fileUrl: req.file.path })
+        })
+        .catch(next)
+}
 
 
 const getOne = (req, res, next) => {
@@ -98,6 +108,7 @@ const deleteOne = (req, res, next) => {
 module.exports = {
     getAll,
     create,
+    uploadImage,
     getOne,
     updateOne,
     deleteOne,
