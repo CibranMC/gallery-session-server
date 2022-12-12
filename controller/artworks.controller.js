@@ -2,6 +2,7 @@ const { isValidObjectId } = require('mongoose');
 const artworkModel = require('../models/Artwork.model');
 const fileUploader = require('../config/cloudinary.config');
 
+
 const getAll = (req, res, next) => {
     const { offset = 0, limit = 8 } = req.query;
     let artworks;
@@ -27,17 +28,28 @@ const getAll = (req, res, next) => {
         .catch(next);
 };
 
+const uploadImage = (req, res, next) => {
+    const { _id } = req.params
+    artworkModel
+        .findByIdAndUpdate(_id, { imageArtworkUrl: req.file.path })
+        .then(() => {
+            res.json({ fileUrl: req.file.path })
+        })
+        .catch(next)
+}
+
 const create = (req, res, next) => {
     const { artistName, name, description, year, technique, price, imageArtworkUrl } = req.body;
 
     artworkModel
-        .create({ artistName, name, description, year, technique, price, imageArtworkUrl: req.file.path })
+        .create({ artistName, name, description, year, technique, price, imageArtworkUrl })
         .then(() => {
-            res.json({ fileUrl: req.file.path })
+            console.log(artistName)
             res.sendStatus(201);
         })
         .catch(next);
 };
+
 
 const getOne = (req, res, next) => {
     try {
@@ -98,6 +110,7 @@ const deleteOne = (req, res, next) => {
 module.exports = {
     getAll,
     create,
+    uploadImage,
     getOne,
     updateOne,
     deleteOne,

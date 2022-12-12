@@ -2,15 +2,13 @@ const { Schema, model } = require('mongoose')
 
 const artistSchema = new Schema(
     {
-        name: {
+        nameArt: {
             type: String,
             trim: true,
-            unique: true,
         },
         lastName: {
             type: String,
             trim: true,
-            unique: true,
         },
         userName: {
             type: String,
@@ -21,15 +19,10 @@ const artistSchema = new Schema(
             trim: true,
         },
         imageUrl: { type: String },
-        email: {
-            type: String,
-        },
-        phoneNumber: {
-            type: String,
-        }
     },
     {
         timestamps: true,
+        versionKey: false,
     }
 )
 
