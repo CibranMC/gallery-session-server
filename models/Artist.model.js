@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose')
 
 const artistSchema = new Schema(
     {
-        nameArt: {
+        name: {
             type: String,
             trim: true,
         },

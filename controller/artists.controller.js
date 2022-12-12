@@ -26,22 +26,10 @@ const getAll = (req, res, next) => {
         })
         .catch(next);
 };
-
-const create = (req, res, next) => {
-    const { nameArt, lastName, userName, imageUrl, description } = req.params;
-
-    artistModel
-        .create({ nameArt, lastName, userName, imageUrl, description })
-        .then(() => {
-            console.log(req.params)
-            res.sendStatus(201);
-        })
-        .catch(next);
-};
-
 const uploadImage = (req, res, next) => {
+
     const { id } = req.params
-    const { imageUrl } = req.body
+
     artistModel
         .findByIdAndUpdate(id, { imageUrl: req.file.path })
         .then(() => {
@@ -49,6 +37,18 @@ const uploadImage = (req, res, next) => {
         })
         .catch(next)
 }
+
+const create = (req, res, next) => {
+    const { name, lastName, userName, imageUrl, description } = req.body;
+
+    artistModel
+        .create({ name, lastName, userName, imageUrl, description })
+        .then(() => {
+
+            res.sendStatus(201);
+        })
+        .catch(next);
+};
 
 
 const getOne = (req, res, next) => {

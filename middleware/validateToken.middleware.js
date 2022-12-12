@@ -6,9 +6,9 @@ const validateToken = (req, res, next) => {
 
     if (authorization) {
         const token = deleteBearer(authorization)
-        const { sub, email } = verifyJwt(token)
+        const { sub, email, role } = verifyJwt(token)
 
-        req.user = { _id: sub, email }
+        req.user = { _id: sub, email, role }
     } else {
         res.sendStatus(401)
         return

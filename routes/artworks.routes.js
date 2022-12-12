@@ -1,5 +1,5 @@
 const router = require('express').Router()
-
+const GALLERIST = require('../const/user.const')
 const fileUploader = require('../config/cloudinary.config');
 
 const {

@@ -29,9 +29,9 @@ const getAll = (req, res, next) => {
 };
 
 const uploadImage = (req, res, next) => {
-    const { _id } = req.params
+    const { id } = req.params
     artworkModel
-        .findByIdAndUpdate(_id, { imageArtworkUrl: req.file.path })
+        .findByIdAndUpdate(id, { imageArtworkUrl: req.file.path })
         .then(() => {
             res.json({ fileUrl: req.file.path })
         })
@@ -44,7 +44,7 @@ const create = (req, res, next) => {
     artworkModel
         .create({ artistName, name, description, year, technique, price, imageArtworkUrl })
         .then(() => {
-            console.log(artistName)
+
             res.sendStatus(201);
         })
         .catch(next);

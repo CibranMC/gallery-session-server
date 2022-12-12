@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { signJwt } = require('../utils/jwt.util');
 const SALT = 10;
 
+
 const MESSAGE_ERROR_EMAIL = 'Email ya está en uso.';
 const MESSAGE_ERROR_LOGIN = 'Email o contraseña no es correcto.';
 
@@ -44,7 +45,7 @@ const LoginController = (req, res, next) => {
             res.status(400).json(MESSAGE_ERROR_LOGIN);
 
             if (user && bcrypt.compareSync(password, user.password)) {
-                res.status(200).json({ token: signJwt(user._id.toString(), user.email) });
+                res.status(200).json({ token: signJwt(user._id.toString(), user.email, user.role) });
             } else {
                 res.status(400).json(MESSAGE_ERROR_LOGIN);
             }
