@@ -9,6 +9,7 @@ const validateToken = (req, res, next) => {
         const { sub, email, role } = verifyJwt(token)
 
         req.user = { _id: sub, email, role }
+
     } else {
         res.sendStatus(401)
         return

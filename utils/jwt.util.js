@@ -5,7 +5,7 @@ const signJwt = (idUser, email, role) => {
 }
 
 const verifyJwt = (token) => {
-    return jwt.verify(token, 'SECRET', { email, role, sub: idUser })
+    return jwt.verify(token, 'SECRET', { email, role, subject: idUser })
 }
 
 module.exports = {
