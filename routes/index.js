@@ -5,5 +5,5 @@ module.exports = (app) => {
     app.use('/auth', require('./auth.routes'))
     app.use('/artists', require('./artists.routes'))
     app.use('/artworks', require('./artworks.routes'))
-    app.use('/shop', require('./shop.routes'))
+    app.use('/checkout', require('./stripe.routes'))
 }

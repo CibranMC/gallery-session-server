@@ -3,7 +3,7 @@ const artistModel = require('../models/Artist.model');
 const fileUploader = require('../config/cloudinary.config');
 
 const getAll = (req, res, next) => {
-    const { offset = 0, limit = 15 } = req.query;
+    const { offset = 0, limit = 9 } = req.query;
     let artists;
     artistModel
         .find()
@@ -39,10 +39,10 @@ const uploadImage = (req, res, next) => {
 }
 
 const create = (req, res, next) => {
-    const { name, lastName, userName, imageUrl, description } = req.body;
+    const { name, lastName, userName, imageUrl, description, cart: { title, imageArtworkUrl, userId, artworkId } } = req.body;
 
     artistModel
-        .create({ name, lastName, userName, imageUrl, description })
+        .create({ name, lastName, userName, imageUrl, description, cart: { title, imageArtworkUrl, userId, artworkId } })
         .then(() => {
 
             res.sendStatus(201);
@@ -74,11 +74,11 @@ const updateOne = (req, res, next) => {
         if (!isValidObjectId(id)) {
             throw new Error('Error: Invalid mongo ID');
         }
-        const { nameArt, lastName, userName, imageUrl, description } = req.body;
+        const { name, lastName, userName, imageUrl, description } = req.body;
 
         artistModel
             .findByIdAndUpdate(id, {
-                nameArt, lastName, userName, imageUrl: req.file.path, description
+                name, lastName, userName, imageUrl: req.file.path, description
             })
             .then(() => {
                 res.sendStatus(204);

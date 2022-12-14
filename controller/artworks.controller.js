@@ -4,7 +4,7 @@ const fileUploader = require('../config/cloudinary.config');
 
 
 const getAll = (req, res, next) => {
-    const { offset = 0, limit = 8 } = req.query;
+    const { offset = 0, limit = 15 } = req.query;
     let artworks;
     artworkModel
         .find()
@@ -39,6 +39,7 @@ const uploadImage = (req, res, next) => {
 }
 
 const create = (req, res, next) => {
+
     const { artistName, name, description, year, technique, price, imageArtworkUrl } = req.body;
 
     artworkModel
@@ -68,6 +69,24 @@ const getOne = (req, res, next) => {
         res.status(400).json({ errorMessage: err.message });
     }
 };
+
+const virtualGallery = (req, res, next) => {
+    try {
+        const { id } = req.params;
+        artworkModel
+            .findOne({ _id: id })
+            .select('imageArtworkUrl')
+            .then((artwork) => {
+                res.status(200).json({
+                    artwork: ['https://res.cloudinary.com/dsrq8rd4m/image/upload/v1670503364/Gallery/kzxxduvl2e9uxxip5jfr.jpg', 'https://res.cloudinary.com/dsrq8rd4m/image/upload/v1670503420/Gallery/vodsbla8b1c2grfccixg.jpg', 'https://res.cloudinary.com/dsrq8rd4m/image/upload/v1670852135/Gallery/w6frhyldyfalhuswmkpf.jpg']
+                })
+            }
+            )
+    }
+    catch (err) {
+        res.status(400).json({ errorMessage: err.message });
+    }
+}
 
 const updateOne = (req, res, next) => {
     try {
@@ -111,6 +130,7 @@ module.exports = {
     getAll,
     create,
     uploadImage,
+    virtualGallery,
     getOne,
     updateOne,
     deleteOne,

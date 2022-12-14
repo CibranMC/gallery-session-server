@@ -4,6 +4,7 @@ const { signJwt } = require('../utils/jwt.util');
 const SALT = 10;
 
 
+
 const MESSAGE_ERROR_EMAIL = 'Email ya está en uso.';
 const MESSAGE_ERROR_LOGIN = 'Email o contraseña no es correcto.';
 
@@ -47,7 +48,33 @@ const LoginController = (req, res, next) => {
         .catch(next);
 };
 
+const CartController = (req, res, next) => {
+
+    console.log(req.body)
+    const { cart: { title, imageArtworkUrl, artworkId } } = req.body
+
+
+    const userProfileId = req.user._id
+
+    UserModel
+        .findById(userProfileId)
+        .then((user) => {
+            const validateId = user.cart.filter((element) => element.artworkId === artworkId)
+            console.log(artworkId)
+            if (validateId.length === 0) {
+                UserModel
+                    .findByIdAndUpdate(userProfileId, { $push: { cart: { title, imageArtworkUrl, artworkId } } }, { new: true })
+            }
+        })
+        .then(() => {
+            res.sendStatus(200)
+        })
+        .catch(next)
+
+}
+
 module.exports = {
     RegisterController,
     LoginController,
+    CartController
 };

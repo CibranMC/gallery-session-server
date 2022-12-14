@@ -1,6 +1,7 @@
 const { verifyJwt } = require('../utils/jwt.util')
 const { deleteBearer } = require('../utils/string.util')
 
+
 const validateToken = (req, res, next) => {
     const { authorization } = req.headers
 

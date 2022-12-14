@@ -19,7 +19,14 @@ const userSchema = new Schema(
       enum: ENUM_ROLES,
       trim: true,
       default: USER
-    }
+    },
+    cart: [{
+      title: String,
+      imageArtworkUrl: String,
+      userId: String,
+      artworkId: String
+    }],
+
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    

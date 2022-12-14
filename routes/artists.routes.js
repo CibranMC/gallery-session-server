@@ -1,5 +1,6 @@
 const router = require('express').Router()
-
+const { GALLERIST, USER } = require('../const/user.const')
+const rolesValidation = require('../middleware/roles.middleware')
 const fileUploader = require('../config/cloudinary.config');
 
 const {
@@ -19,7 +20,7 @@ router.get('/:id', getOne)
 // ---- POST ----
 router.post('/uploadimage', fileUploader.single('imageUrl'), uploadImage)
 
-router.post('/', create)
+router.post('/', rolesValidation(GALLERIST), create)
 
 //---- PUT ----
 router.put('/:id', updateOne)
