@@ -29,7 +29,9 @@ const getAll = (req, res, next) => {
 };
 
 const uploadImage = (req, res, next) => {
+
     const { id } = req.params
+
     artworkModel
         .findByIdAndUpdate(id, { imageArtworkUrl: req.file.path })
         .then(() => {
@@ -73,12 +75,31 @@ const getOne = (req, res, next) => {
 const virtualGallery = (req, res, next) => {
     try {
         const { id } = req.params;
+
         artworkModel
             .findOne({ _id: id })
             .select('imageArtworkUrl')
             .then((artwork) => {
                 res.status(200).json({
                     artwork: ['https://res.cloudinary.com/dsrq8rd4m/image/upload/v1670503364/Gallery/kzxxduvl2e9uxxip5jfr.jpg', 'https://res.cloudinary.com/dsrq8rd4m/image/upload/v1670503420/Gallery/vodsbla8b1c2grfccixg.jpg', 'https://res.cloudinary.com/dsrq8rd4m/image/upload/v1670852135/Gallery/w6frhyldyfalhuswmkpf.jpg']
+                })
+            }
+            )
+    }
+    catch (err) {
+        res.status(400).json({ errorMessage: err.message });
+    }
+}
+const virtualGalleryAll = (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        artworkModel
+            .find({ imageArtworkUrl: { $exists: true } })
+            .select('imageArtworkUrl')
+            .then((artworks) => {
+                res.status(200).json({
+                    artwork: artworks.map((artwork) => artwork.imageArtworkUrl)
                 })
             }
             )
@@ -131,6 +152,7 @@ module.exports = {
     create,
     uploadImage,
     virtualGallery,
+    virtualGalleryAll,
     getOne,
     updateOne,
     deleteOne,

@@ -51,7 +51,7 @@ const LoginController = (req, res, next) => {
 const CartController = (req, res, next) => {
 
     console.log(req.body)
-    const { cart: { title, imageArtworkUrl, artworkId } } = req.body
+    const { cart: { imageArtworkUrl, _id } } = req.body
 
 
     const userProfileId = req.user._id
@@ -59,15 +59,16 @@ const CartController = (req, res, next) => {
     UserModel
         .findById(userProfileId)
         .then((user) => {
-            const validateId = user.cart.filter((element) => element.artworkId === artworkId)
-            console.log(artworkId)
+            const validateId = user.cart.filter((element) => element.artworkId === _id)
+            console.log(_id)
             if (validateId.length === 0) {
-                UserModel
-                    .findByIdAndUpdate(userProfileId, { $push: { cart: { title, imageArtworkUrl, artworkId } } }, { new: true })
+                console.log('entra')
+                return UserModel
+                    .findByIdAndUpdate(userProfileId, { $push: { cart: { imageArtworkUrl, artworkId: _id } } }, { new: true })
             }
         })
-        .then(() => {
-            res.sendStatus(200)
+        .then((res) => {
+            res.sendStatus(200);
         })
         .catch(next)
 

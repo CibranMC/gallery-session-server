@@ -5,7 +5,7 @@ const rolesValidation = (roles) => (req, res, next) => {
     if (userProfileId && roles.includes(userProfileId.role)) {
         next();
     } else {
-        res.render('not-found');
+        res.json('not-found');
     }
 };
 

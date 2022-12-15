@@ -7,6 +7,7 @@ const fileUploader = require('../config/cloudinary.config');
 const {
     getAll,
     virtualGallery,
+    virtualGalleryAll,
     create,
     uploadImage,
     getOne,
@@ -18,13 +19,14 @@ const {
 router.get('/', getAll)
 
 router.get('/virtual-gallery/:id', virtualGallery)
+router.get('/virtual-gallery', virtualGalleryAll)
 
 router.get('/:id', getOne)
 
 // ---- POST ----
 router.post('/uploadimage', fileUploader.single('imageArtworkUrl'), uploadImage)
 
-router.post('/', rolesValidation(GALLERIST), create)
+router.post('/', create)
 
 //---- PUT ----
 router.put('/:id', updateOne)

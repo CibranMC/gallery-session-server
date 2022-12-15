@@ -3,10 +3,12 @@ const artistModel = require('../models/Artist.model');
 const fileUploader = require('../config/cloudinary.config');
 
 const getAll = (req, res, next) => {
+    const { body } = req.query
     const { offset = 0, limit = 9 } = req.query;
     let artists;
     artistModel
-        .find()
+        .find({})
+        // .then((artist) => res.json(artist.name || artist.lastName))
         .limit(limit)
         .skip(limit * offset)
         .sort({ createdAt: -1 })
@@ -26,6 +28,14 @@ const getAll = (req, res, next) => {
         })
         .catch(next);
 };
+
+const searchBar = (req, res, next) => {
+    const { body } = req.query
+    artistModel
+        .find({})
+        .then()
+}
+
 const uploadImage = (req, res, next) => {
 
     const { id } = req.params
@@ -39,10 +49,10 @@ const uploadImage = (req, res, next) => {
 }
 
 const create = (req, res, next) => {
-    const { name, lastName, userName, imageUrl, description, cart: { title, imageArtworkUrl, userId, artworkId } } = req.body;
+    const { name, lastName, userName, imageUrl, description } = req.body;
 
     artistModel
-        .create({ name, lastName, userName, imageUrl, description, cart: { title, imageArtworkUrl, userId, artworkId } })
+        .create({ name, lastName, userName, imageUrl, description })
         .then(() => {
 
             res.sendStatus(201);

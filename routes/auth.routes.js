@@ -11,9 +11,10 @@ router.get("/", validateToken, (req, res, next) => {
 });
 
 router.get('/profile', validateToken, CartController)
+
 router.post('/register', RegisterController)
 router.post('/login', LoginController)
-router.post('/:id', validateToken, CartController)
+// router.post('/profile', validateToken, CartController)
 
 
 module.exports = router;

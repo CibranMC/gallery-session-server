@@ -20,7 +20,7 @@ router.get('/:id', getOne)
 // ---- POST ----
 router.post('/uploadimage', fileUploader.single('imageUrl'), uploadImage)
 
-router.post('/', rolesValidation(GALLERIST), create)
+router.post('/', create)
 
 //---- PUT ----
 router.put('/:id', updateOne)

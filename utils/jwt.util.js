@@ -7,6 +7,7 @@ const signJwt = (idUser, email, role) => {
 }
 
 const verifyJwt = (token) => {
+    console.log(token)
     return jwt.verify(token, 'SECRET')
 }
 
