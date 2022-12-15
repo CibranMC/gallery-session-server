@@ -96,11 +96,11 @@ const virtualGalleryAll = (req, res, next) => {
         const { id } = req.params;
 
         artworkModel
-            .find({ name: { $exists: true }, imageArtworkUrl: { $exists: true } })
+            .find({ imageArtworkUrl: { $exists: true } })
             .select('imageArtworkUrl')
             .then((artworks) => {
                 res.status(200).json({
-                    artwork: artworks.map((artwork) => artwork.imageArtworkUrl && artwork.name)
+                    artwork: artworks.map((artwork) => artwork.imageArtworkUrl)
                 })
             }
             )
