@@ -9,7 +9,7 @@ const validateToken = (req, res, next) => {
         const token = deleteBearer(authorization)
         const { sub, email, role } = verifyJwt(token)
 
-        req.user = { _id: sub, email, role, getToken: token }
+        req.user = { _id: sub, email, role, token }
 
     } else {
         res.sendStatus(401)
